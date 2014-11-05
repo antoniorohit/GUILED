@@ -1,6 +1,9 @@
 // This sketch produces a 64x64 canvas of squares which are drawable.
 // It is meant to be one of the input methods for an RGB LED Matrix Display
 
+int PACKET_SIZE = 7;
+int BUFFER_SIZE = 64*64;
+
 // Serial library to talk to KL25z
 import processing.serial.*;
 Serial myPort;
@@ -13,7 +16,9 @@ int videoScale = 10;
 int cols, rows;
 int j = 0;
 int val;
-byte buff[] = {0, 0, 0, 0, 0, 0, 0};
+byte[][] buff; 
+byte[] temp_buff;
+int num_bytes;
 
 // Helper function: sets the grid back to near-black
 void ClearScreen() 
@@ -36,43 +41,41 @@ void ClearScreen()
   
   
 void setup() {    // Runs once in the beginning of the execution
+  temp_buff = new byte[PACKET_SIZE+10];
+  buff = new byte[BUFFER_SIZE][PACKET_SIZE];
+  frameRate(11);
   size(640,640);
   
   // Start the serial comm on port [3] - KL25Z shows up here
   String portName = Serial.list()[3];
-  myPort = new Serial(this, portName, 9600);
+  print(Serial.list());
+  myPort = new Serial(this, portName, 115200);
   myPort.clear();
   
   // Initialize columns and rows based on the canvas just drawn
   cols = width/videoScale;
   rows = height/videoScale;
   ClearScreen();            // call the 2 for loops defined above
+  stroke(0,0,0);  //black
 }
 
 void draw() {    // Runs forever (like a while(1)
-   if(myPort.available() > 0) {
-     // Protocol is packets of: 'S'XYRGB'R' 
-     val = myPort.readBytesUntil('R', buff);
-      
-      // Prints for DEBUG
-//      print(char(buff[0]));       // -----> 'S'
-//      print(',', int(buff[1]));   // -----> X coordinate
-//      print(',', int(buff[2]));   // -----> Y coordinate
-//      print(',', int(buff[3]));   // -----> R value
-//      print(',', int(buff[4]));   // -----> G value
-//      print(',', int(buff[5]));   // -----> B value
-//      print(',', char(buff[6]));  // -----> 'R'
-//      print('|');
-      
-      fill(buff[3], buff[4], char(buff[5]));
-      stroke(0,0,0);  //black
-      // fill in the corresponding rectangle
-      rect(buff[1]*videoScale,buff[2]*videoScale, videoScale,videoScale);
+  myPort.write("GG");
+  while(myPort.available() > 0 && val < 4095){
+    myPort.write("G");
+    // Protocol is packets of: XYRGB<255> 
+    myPort.readBytesUntil((255), buff[val++]);
+  }
 
+  while(val > 0) {
+    fill(buff[val][2], buff[val][3], buff[val][4]);
+    // fill in the corresponding rectangle
+    rect(buff[val][0]*videoScale,buff[val][1]*videoScale, videoScale,videoScale);
+    val--;  
+  }
+ if(mousePressed && (mouseButton == RIGHT)){
+     ClearScreen();
    }
-   else if(mousePressed && (mouseButton == RIGHT)){
-       ClearScreen();
-     }
     
 }
 
