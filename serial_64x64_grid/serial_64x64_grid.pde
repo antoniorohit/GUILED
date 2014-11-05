@@ -62,7 +62,7 @@ void setup() {    // Runs once in the beginning of the execution
 void draw() {    // Runs forever (like a while(1)
   myPort.write("GG");
   while(myPort.available() > 0 && val < 4095){
-    myPort.write("G");
+    myPort.write("GG");
     // Protocol is packets of: XYRGB<255> 
     myPort.readBytesUntil((255), buff[val++]);
   }
