@@ -67,7 +67,6 @@ void draw() {    // Runs forever (like a while(1)
          ClearScreen();
          myPort.write(255);        
          myPort.write(254);          
-         myPort.write(254);          
 
      }
     
