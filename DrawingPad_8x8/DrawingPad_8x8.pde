@@ -35,15 +35,15 @@ public void draw(){
         stroke(0,0,0);  //black
         // draw the pixel
         rect(mouseX-(mouseX-(BORDER-1))%gridScale, mouseY-(mouseY-(BORDER-1))%gridScale, gridScale,gridScale);
-        port.write(255);                                  // start byte
+         port.write(254);                                     // start byte
         port.write(int((mouseX-(BORDER-1))/gridScale));   // X
         port.write(int((mouseY-(BORDER-1))/gridScale));    // Y
-
+         port.write(r*31/255);                                // R byte
+         port.write(g*31/255);                                // G byte
+         port.write(b*31/255);                                // B byte
+         port.write(255);                                     // end byte
       }
-     port.write(r*31/255);                                // R byte
-     port.write(g*31/255);                                // G byte
-     port.write(b*31/255);                                // B byte
-     port.write(254);                                     // end byte
+      print(int((mouseX-(BORDER-1))/gridScale), int((mouseY-(BORDER-1))/gridScale), r*31/255, g*31/255, b*31/255, '\n');
 
    }
    // right click clears a pixel. Recall that flag == true if COMPORT is set
@@ -53,16 +53,15 @@ public void draw(){
         fill(0, 0, 0);
         stroke(0,0,0);  //black
         rect(mouseX-(mouseX-(BORDER-1))%gridScale, mouseY-(mouseY-(BORDER-1))%gridScale, gridScale,gridScale);
-        port.write(255);                                              // start byte
+       port.write(254);                                     // start byte
         port.write(int((mouseX-(BORDER-1))/gridScale));                // X location
         port.write(int((mouseY-(BORDER-1))/gridScale));                // Y location
-
-      }
       // black (RGB = {0,0,0})
       port.write(0);                              
       port.write(0);
       port.write(0);
-      port.write(254);                                               // end byte
+      port.write(255);                                               // end byte
+      }
    }
 
 }
