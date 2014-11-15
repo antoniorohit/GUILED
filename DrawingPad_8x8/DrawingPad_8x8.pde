@@ -22,7 +22,7 @@ public void setup(){
   println("Available serial ports:");  
   println(Serial.list());
   // note that the serial port is set using the GUI
-  //port = new Serial(this, Serial.list()[3], 9600); 
+  //port = new Serial(this, Serial.list()[3], 115200); 
 }
 
 public void draw(){
@@ -38,9 +38,9 @@ public void draw(){
          port.write(254);                                     // start byte
         port.write(int((mouseX-(BORDER-1))/gridScale));   // X
         port.write(int((mouseY-(BORDER-1))/gridScale));    // Y
-         port.write(r*31/255);                                // R byte
-         port.write(g*31/255);                                // G byte
-         port.write(b*31/255);                                // B byte
+         port.write(r*63/255);                                // R byte (6-bit)
+         port.write(g*63/255);                                // G byte  (6-bit)
+         port.write(b*63/255);                                // B byte  (6-bit)
          port.write(255);                                     // end byte
       }
    }
