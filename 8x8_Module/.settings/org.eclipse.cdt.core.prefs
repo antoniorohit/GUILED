@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/LPC_DEPLOY/delimiter=\:
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/LPC_DEPLOY/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/LPC_DEPLOY/value=cp $(PROJECT).bin /Volumes/MBED/ ; sync
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/PATH/delimiter=\:
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/PATH/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/PATH/value=/usr/bin\:/bin\:/usr/sbin\:/sbin\:/Users/antonio/Downloads/gcc-arm-none-eabi-4_8-2014q3/bin
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712.819711496/appendContributed=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/LPC_DEPLOY/delimiter=\:
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/LPC_DEPLOY/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/LPC_DEPLOY/value=cp $(PROJECT).bin /Volumes/MBED/ ; sync
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/PATH/delimiter=\:
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/PATH/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/PATH/value=/Users/antonio/Downloads/adamgreen-gcc4mbed-1f1ebc4/gcc-arm-none-eabi/bin/
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.967372712/appendContributed=true

@@ -1,0 +1,1 @@
+Changed code to drive 8 strips (for an 8x8 matrix); There's some bug in it though. Weird stuff can happen; 
