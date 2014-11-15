@@ -43,8 +43,6 @@ public void draw(){
          port.write(b*31/255);                                // B byte
          port.write(255);                                     // end byte
       }
-      print(int((mouseX-(BORDER-1))/gridScale), int((mouseY-(BORDER-1))/gridScale), r*31/255, g*31/255, b*31/255, '\n');
-
    }
    // right click clears a pixel. Recall that flag == true if COMPORT is set
    if(mousePressed && (flag == false) && (mouseButton == RIGHT)){

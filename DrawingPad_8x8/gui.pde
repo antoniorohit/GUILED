@@ -44,7 +44,7 @@ public void createGUI(){
   if(frame != null)
     frame.setTitle("Sketch Window");
   
-  button1 = new GButton(this, 510, 675, 80, 30);
+  button1 = new GButton(this, 510, 670, 80, 30);
   button1.setText("Clear");
   button1.addEventHandler(this, "button1_click1");
 
@@ -89,7 +89,7 @@ public void createGUI(){
   custom_slider3.setOpaque(false);
   custom_slider3.addEventHandler(this, "custom_slider3_change");
   
-  COM_PORT = new GTextField(this, 390, 675, 81, 30, G4P.SCROLLBARS_NONE);
+  COM_PORT = new GTextField(this, 390, 670, 81, 30, G4P.SCROLLBARS_NONE);
   COM_PORT.setText("0");
   COM_PORT.setOpaque(true);
   COM_PORT.addEventHandler(this, "textfield1_change1");
