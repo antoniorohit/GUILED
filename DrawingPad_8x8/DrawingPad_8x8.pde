@@ -4,7 +4,7 @@ import g4p_controls.*;
 import processing.serial.*;
 Serial port;
  
-int r =0, g =0, b =0, COM_PORT_NUM;    // RGB and serial port vars
+int r =0, g =0, b =0, COM_PORT_NUM = 0;    // RGB and serial port vars
 boolean flag = boolean(1);            // flag = 0 if COMPORT set in GUI
 int gridScale = 80;                  // 80 for 8x8, 10 for 64x64
 int BORDER = 5;
@@ -22,7 +22,8 @@ public void setup(){
   println("Available serial ports:");  
   println(Serial.list());
   // note that the serial port is set using the GUI
-  //port = new Serial(this, Serial.list()[3], 115200); 
+//  port = new Serial(this, Serial.list()[3], 115200); 
+//  flag = false;
 }
 
 public void draw(){
@@ -36,6 +37,7 @@ public void draw(){
         // draw the pixel
         rect(mouseX-(mouseX-(BORDER-1))%gridScale, mouseY-(mouseY-(BORDER-1))%gridScale, gridScale,gridScale);
          port.write(254);                                     // start byte
+        // Packet type
         port.write(int((mouseX-(BORDER-1))/gridScale));   // X
         port.write(int((mouseY-(BORDER-1))/gridScale));    // Y
          port.write(r*63/255);                                // R byte (6-bit)

@@ -34,7 +34,7 @@ void setup() {    // Runs once in the beginning of the execution
   size(640,640);
   String portName = Serial.list()[3];
   print(Serial.list());
-  myPort = new Serial(this, portName, 9600);
+  myPort = new Serial(this, portName, 115200);
   myPort.clear();
   // Initialize columns and rows based on the canvas just drawn
   cols = width/videoScale;
@@ -54,19 +54,19 @@ void draw() {    // Runs forever (like a while(1)
         stroke(0,0,0);  //black
         // fill in the corresponding rectangle
         rect(mouseX-(mouseX%videoScale), mouseY-mouseY%videoScale, videoScale,videoScale);
-        myPort.write(255);        
+        myPort.write(254);        
         myPort.write(x);
         myPort.write(y);
         myPort.write(mouseX*253/width);
         myPort.write(mouseY*253/height);
         myPort.write(0);
-        myPort.write(254);
+        myPort.write(255);
       }
    }
       if(mousePressed && (mouseButton == RIGHT)){
          ClearScreen();
-         myPort.write(255);        
-         myPort.write(254);          
+         myPort.write(254);        
+         myPort.write(255);          
 
      }
     

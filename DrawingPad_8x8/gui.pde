@@ -26,8 +26,10 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:2493
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_PORT:368153:
   println("COM_PORT - GTextField event occured " + System.currentTimeMillis()%10000000 );
+    print(int(COM_PORT.getText()));
   if(COM_PORT_NUM != int(COM_PORT.getText()))
   {
+    print(int(COM_PORT.getText()));
     COM_PORT_NUM = int(COM_PORT.getText());
     port = new Serial(this, Serial.list()[COM_PORT_NUM], 115200); 
     flag = boolean(0);

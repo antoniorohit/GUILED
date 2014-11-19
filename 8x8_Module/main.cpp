@@ -32,7 +32,7 @@ static void clearStrip(WS2811 &strip)
 
 int main(void)
 {
-    pc.baud(115200);							// 11520 Bytes/s -> ~0.3s for 32x32 RGB pixels
+pc.baud(115200);							// 11520 Bytes/s -> ~0.3s for 32x32 RGB pixels
     WS2811 *lightStrip;
     // Initialize an 8-strip matrix
     WS2811 lightStrip1(nLEDs, DATA_OUT_PIN1);
@@ -114,7 +114,7 @@ int main(void)
             (*lightStrip).setPixelColor(char_buff[1]%X_MAX, (char_buff[3]), (char_buff[4]), (char_buff[5]));
             
             (*lightStrip).show();
-            pc.putc(48+(char_buff[0]));
+            pc.putc(48+(char_buff[1]));
         }
         else{            
             clearStrip(lightStrip1);
