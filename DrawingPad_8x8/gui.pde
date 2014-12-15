@@ -16,12 +16,12 @@
 
 public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:249331:
   println("button1 - GButton event occured " + System.currentTimeMillis()%10000000 );
-  port.write(255);
+  port.write(254);
   background(230);
   stroke(0,0,0);
   fill(0,0,0);
   rect(BORDER-1, BORDER-1, 640, 640);
-  port.write(254);
+  port.write(255);
 } //_CODE_:button1:249331:
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_PORT:368153:
