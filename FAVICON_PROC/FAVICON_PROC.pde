@@ -14,9 +14,9 @@
   println(Serial.list());
  
   img2 = loadImage("logo.gif");
-  img4 = loadImage("hearts.jpg");
-  img3 = loadImage("google.jpg");
-  img1 = loadImage("4.jpg");
+  img1 = loadImage("hearts.jpg");
+  img4 = loadImage("google.jpg");
+  img3 = loadImage("4.jpg");
 
   img1.resize(8, 8);
   img2.resize(16, 16);
@@ -24,8 +24,7 @@
   img4.resize(16, 16);
 
   image(img1, 0, 0, 100, 100);
-  
- 
+
   img1.loadPixels();
   img2.loadPixels();
   img3.loadPixels();
@@ -48,6 +47,7 @@
 
   if(mousePressed)
   {
+      delay(1);
        for(int dim = 0; dim < img1.height*img1.width; dim++)
        {
          i = (int)dim%8;
