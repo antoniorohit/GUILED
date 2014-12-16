@@ -17,9 +17,9 @@ unsigned const DATA_OUT_PIN4 = 4;
 unsigned const DATA_OUT_PIN5 = 5; 
 unsigned const DATA_OUT_PIN6 = 6; 
 unsigned const DATA_OUT_PIN7 = 10; 
+unsigned const DATA_OUT_PIN8 = 11;
 
 // Next 8 pin *NUMBERS* - these are randomly spaced across the board
-unsigned const DATA_OUT_PIN8 = 11; 
 unsigned const DATA_OUT_PIN9 = 1;
 unsigned const DATA_OUT_PIN10 = 2;
 unsigned const DATA_OUT_PIN11 = 8;
@@ -168,7 +168,6 @@ int main(void)
             
             (*lightStrip).show();
             pc.putc((char_buff[3]));
-            WS2811::startDMA();
         }
         else{
         	if(q == 2){
@@ -188,8 +187,9 @@ int main(void)
 //				clearStrip(lightStrip14);
 //				clearStrip(lightStrip15);
 //				clearStrip(lightStrip16);
-		        WS2811::startDMA();
-
+        	}
+        	else if(q <= 4){
+                WS2811::startDMA();
         	}
         }
         q = 0;
