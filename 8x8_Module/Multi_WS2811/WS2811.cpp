@@ -50,12 +50,12 @@ static GPIO_Type volatile * const IO_GPIO = PTC;
 // 48 MHz clock, no prescaling.
 #define NSEC_TO_TICKS(nsec) ((nsec)*48/1000)
 #define USEC_TO_TICKS(usec) ((usec)*48)
-static const uint32_t CLK_NSEC = 2500;
+static const uint32_t CLK_NSEC = 1250;
 static const uint32_t tpm_period    = NSEC_TO_TICKS(CLK_NSEC);
 //static const uint32_t tpm_p0_period = NSEC_TO_TICKS(250);
 //static const uint32_t tpm_p1_period = NSEC_TO_TICKS(650);
-static const uint32_t tpm_p0_period = NSEC_TO_TICKS(800);
-static const uint32_t tpm_p1_period = NSEC_TO_TICKS(1600);
+static const uint32_t tpm_p0_period = NSEC_TO_TICKS(400);
+static const uint32_t tpm_p1_period = NSEC_TO_TICKS(800);
 static const uint32_t guardtime_period = USEC_TO_TICKS(50);   // guardtime minimum 50 usec.
 
 enum DMA_MUX_SRC {

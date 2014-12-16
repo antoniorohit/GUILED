@@ -47,9 +47,9 @@ public void draw(){
           port.write(int(b*128/255));                                // B byte  (6-bit)
           port.write(255);                                           // end byte    
           println(x, y, int(r*128/255), int(g*128/255), int(b*128/255));
-          port.write(254);                                     // start byte
-          port.write(254);                                     // start byte
-          port.write(255);                                           // end byte    
+//          port.write(254);                                     // start byte
+//          port.write(254);                                     // start byte
+//          port.write(255);                                           // end byte    
 
         }
         prev_x = x;
