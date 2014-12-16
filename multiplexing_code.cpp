@@ -12,7 +12,7 @@
 // 120 LEDs: 7200 mA max
 unsigned const nLEDs = MAX_LEDS_PER_STRIP;          // 64
 
-unsigned const horizontal_blocks = 2; //The number of basic blocks connected horizontally
+unsigned const horizontal_blocks = 3; //The number of basic blocks connected horizontally
 unsigned const vertical_blocks = 4; //The number of basic blocks connected vertically
 
 //Each mask corresponds to the nth significant bit in a binary word
@@ -39,18 +39,16 @@ DigitalOut ADDRESS_PIN_1(D5); // AKA PTA5
 
 Serial pc(USBTX, USBRX);                    //  D1 (PTA2) and D0 (PTA1) on KL25Z
 
-static void clearStrip(WS2811 &strip)
+static void clearStrip(WS2811 &strip, unsigned nLEDs)
 {
-    unsigned nLEDs = strip.numPixels();
-    for (unsigned i = 0; i < nLEDs; i++) {
+       for (unsigned i = 0; i < nLEDs; i++) {
         strip.setPixelColor(i, 0, 0, 0);
     }
     strip.show();
 }
 
-static void illuminateStrip(WS2811 &strip, uint8_t led_matrix[])
+static void illuminateStrip(WS2811 &strip, uint8_t led_matrix[],unsigned nLEDs)
 {
-    unsigned nLEDs = strip.numPixels();
      for (unsigned i = 0; i < nLEDs; i++) {
         strip.setPixelColor(i, led_matrix[3*i], led_matrix[(3*i)+1], led_matrix[(3*i)+2]);
     }
@@ -141,7 +139,7 @@ int main(void)
         
         unsigned vert_pos = char_buff[2]%Y_MAX; // The absolute vertical position in the structure
         
-        unsigned row_pos = char_buff[2] % 8 ; // The relative position of the strip being actuated
+        unsigned row_pos = char_buff[2] % nRows ; // The relative position of the strip being actuated
         
         if((char_buff[0] == 254) && (q >= 5)){
             
@@ -166,14 +164,14 @@ int main(void)
                          
                
                //		Send the data out into the real world...
-                        illuminateStrip(lightStrip1, ledmatrix_row1);
+                        illuminateStrip(lightStrip1, ledmatrix_row1,nCols*horizontal_blocks);
                         
                         if (vertical_blocks > 1) {
-                       		illuminateStrip(lightStrip2, ledmatrix_row2);}
+                       		illuminateStrip(lightStrip2, ledmatrix_row2,nCols*horizontal_blocks);}
                         if (vertical_blocks > 2) {
-                        	illuminateStrip(lightStrip3, ledmatrix_row3);}
+                        	illuminateStrip(lightStrip3, ledmatrix_row3,nCols*horizontal_blocks);}
                         if (vertical_blocks > 3) {
-                        	illuminateStrip(lightStrip4, ledmatrix_row4);}
+                        	illuminateStrip(lightStrip4, ledmatrix_row4,nCols*horizontal_blocks);}
    
            
                 
@@ -196,10 +194,10 @@ int main(void)
                 		 ADDRESS_PIN_2 =  mask_2 & j;
                 		 ADDRESS_PIN_3 =  mask_3 & j;
             	
-            			clearStrip(lightStrip1);
-                		clearStrip(lightStrip2);
-                		clearStrip(lightStrip3);
-                		clearStrip(lightStrip4);
+            			clearStrip(lightStrip1,nCols*horizontal_blocks);
+                		clearStrip(lightStrip2,nCols*horizontal_blocks);
+                		clearStrip(lightStrip3,nCols*horizontal_blocks);
+                		clearStrip(lightStrip4,nCols*horizontal_blocks);
                 		}                  
         }
         q = 0;
