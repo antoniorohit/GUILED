@@ -9,22 +9,22 @@
  void setup() {
 
   size(100, 100);
-
-   
+  
   println("Available serial ports:");
   println(Serial.list());
  
   img2 = loadImage("logo.gif");
-  img1 = loadImage("hearts.jpg");
+  img4 = loadImage("hearts.jpg");
   img3 = loadImage("google.jpg");
-  img4 = loadImage("4.jpg");
+  img1 = loadImage("4.jpg");
 
-  image(img1, 0, 0, 100, 100);
-  
-  img1.resize(16, 16);
+  img1.resize(8, 8);
   img2.resize(16, 16);
   img3.resize(16, 16);
   img4.resize(16, 16);
+
+  image(img1, 0, 0, 100, 100);
+  
  
   img1.loadPixels();
   img2.loadPixels();
@@ -35,7 +35,7 @@
   // select the port corresponding to your Pioneer board.  The last
   // parameter (e.g. 115200) is the speed of the communication.  It
   // has to correspond to the value in the UART Component 
-  port = new Serial(this, Serial.list()[3], 115200);  
+  port = new Serial(this, Serial.list()[3], 9600);  
  
   // If you know the name of the port used by the Pioneer board, you
   // can specify it directly like this.
@@ -48,12 +48,10 @@
 
   if(mousePressed)
   {
-//    while(true)
-//    {
        for(int dim = 0; dim < img1.height*img1.width; dim++)
        {
-         i = (int)dim%16;
-         j = (int)dim/16;
+         i = (int)dim%8;
+         j = (int)dim/8;
          port.write(254);       
          port.write(i);
          port.write(j);
@@ -62,34 +60,13 @@
          port.write((int)((128*green(img1.pixels[dim]))/255));
          port.write((int)((128*blue(img1.pixels[dim]))/255));
          port.write(255);
-
-//          port.write(i+16);
-//          port.write(j);
-//          port.write((int)((31*red(img2.pixels[dim]))/255));
-//          port.write((int)((31*green(img2.pixels[dim]))/255));
-//          port.write((int)((31*blue(img2.pixels[dim]))/255));
+          
         }
-        
-//        for(int dim = 0; dim < img3.height*img3.width; dim++)
-//        {
-//         i = (int)dim%16;
-//         j = (int)dim/16;
-//         port.write(i);
-//         port.write(j);
-//         
-//          port.write((int)((31*red(img3.pixels[dim]))/255));
-//          port.write((int)((31*green(img3.pixels[dim]))/255));
-//          port.write((int)((31*blue(img3.pixels[dim]))/255));
-//          port.write('D');
-//       
-//          port.write(i+16);
-//          port.write(j);
-//          port.write((int)((31*red(img4.pixels[dim]))/255));
-//          port.write((int)((31*green(img4.pixels[dim]))/255));
-//          port.write((int)((31*blue(img4.pixels[dim]))/255));
-//          port.write('D');
-//        }
-//    }  
+       
+       // Display Image Packet
+       port.write(254);       
+       port.write(254);       
+       port.write(255);
  }
- }
+}
  
