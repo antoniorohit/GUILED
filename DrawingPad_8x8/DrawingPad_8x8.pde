@@ -166,6 +166,7 @@ public void setImage() {
   if (!filePath.equals("-1")) {
     img = loadImage(filePath);
     if (img != null) {
+      img.loadPixels();
       println("Image loaded");
     }
     else {

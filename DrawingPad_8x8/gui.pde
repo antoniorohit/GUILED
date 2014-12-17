@@ -24,6 +24,31 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:2493
   port.write(255);
 } //_CODE_:button1:249331:
 
+public void button2_click1(GButton source, GEvent event) {
+  if (img != null) {
+    println("Writing image to LED's");
+    for(int dim = 0; dim < img.height*img.width; dim++){
+           int i = (int)dim%16;
+           int j = (int)dim/16;
+           port.write(254);       
+           port.write(i);
+           port.write(j);
+         
+           port.write((int)((128*red(img.pixels[dim]))/255));
+           port.write((int)((128*green(img.pixels[dim]))/255));
+           port.write((int)((128*blue(img.pixels[dim]))/255));
+           port.write(255);
+     }
+  }
+  else {
+    println("Image is not loaded. Please load a new image.");
+  }
+}
+
+public void button3_click1(GButton source, GEvent event){
+  setImage();
+}
+
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_PORT:368153:
   println("COM_PORT - GTextField event occured " + System.currentTimeMillis()%10000000 );
     print(int(COM_PORT.getText()));
@@ -49,6 +74,14 @@ public void createGUI(){
   button1 = new GButton(this, 510, 770, 80, 30);
   button1.setText("Clear");
   button1.addEventHandler(this, "button1_click1");
+  
+  GButton button2 = new GButton(this, 610, 770, 80, 30);
+  button2.setText("Set Image");
+  button2.addEventHandler(this, "button2_click1");
+  
+  GButton button3 = new GButton(this, 710, 770, 80, 30);
+  button3.setText("Load Image");
+  button3.addEventHandler(this, "button3_click1");
 
   label3 = new GLabel(this, 30, 750, 80, 20);
   label3.setText("Red:");
