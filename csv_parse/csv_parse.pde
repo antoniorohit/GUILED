@@ -23,7 +23,7 @@ void setup() {
   img.loadPixels();
   float oldTimeStamp = 0;
   
-  table = loadTable("tess2.csv", "header");
+  table = loadTable("tess5.csv", "header");
 
   int maxRows = table.getRowCount();
   
@@ -70,12 +70,12 @@ void setup() {
       }
       
       // If the sum of high and low times exceeds 1 period, then we probably have a bit!
-      if((highTime + lowTime) > 1.1*0.001*0.001){// || (timestamp - oldTimeStamp > 1.25*.001*.001)){ //us
+      if((highTime + lowTime) > .9*0.001*0.001){// || (timestamp - oldTimeStamp > 1.25*.001*.001)){ //us
           oldTimeStamp = timestamp;
           if(lowTime + highTime > 0){
             // DC = high/total time
-            dutyCycle = highTime/(0.001*0.001*1.25);//(highTime + lowTime);          // 2.5 cycles = 1.25uS
-            if(dutyCycle > .5){                      // WS2811 protocol with a little margin
+            dutyCycle = highTime/(highTime + lowTime);          // 2.5 cycles = 1.25uS
+            if(dutyCycle > .35){                      // WS2811 protocol with a little margin
               dutyCycleBuff[i] = 1;                  // DC buff is a 8 variable buffer to recreate the RGB bytes
             }
             count++;

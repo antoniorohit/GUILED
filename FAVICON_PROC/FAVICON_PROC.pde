@@ -13,17 +13,18 @@
   println("Available serial ports:");
   println(Serial.list());
  
-  img1 = loadImage("ILU.jpg");
+  img4 = loadImage("ILU.jpg");
   img2 = loadImage("hearts.jpg");
   img3 = loadImage("google.jpg");
-  img4 = loadImage("4.jpg");
+  img1 = loadImage("hearts.jpg");
+
+  image(img1, 0, 0, 100, 100);
 
   img1.resize(8, 8);
   img2.resize(16, 16);
   img3.resize(16, 16);
   img4.resize(16, 16);
 
-  image(img1, 0, 0, 100, 100);
 
   img1.loadPixels();
   img2.loadPixels();

@@ -30,9 +30,17 @@ static void clearStrip(WS2811 &strip)
     strip.show();
 }
 
+static void showSolidColor(WS2811 &strip, uint8_t r, uint8_t g, uint8_t b)
+{
+    unsigned nLEDs = strip.numPixels();
+    for (unsigned i = 0; i < nLEDs; i++) {
+        strip.setPixelColor(i, r, g, b);
+    }
+    strip.show();
+}
+
 int main(void)
 {
-	pc.baud(9600);							// 11520 Bytes/s -> ~0.3s for 32x32 RGB pixels
     WS2811 *lightStrip;
     // Initialize an 8-strip matrix
     WS2811 lightStrip1(nLEDs, DATA_OUT_PIN1);
@@ -53,34 +61,12 @@ int main(void)
     lightStrip7.begin();
     lightStrip8.begin();
 
-    uint8_t q = 0;								// index variable
-    uint8_t char_buff[10];							// UART buffer
-    uint8_t curr_char = 0;							// current byte read from UART
+    uint8_t q = 0, r, g, b = 0;								// index variable
     
     for (;;) {
-        /* I have defined a custom UART packet protocol
-         * A general packet may look like: 
-         * char_buff[0]		start byte: 	254
-         * char_buff[1]     x-coordinate [0, 63]
-         * char_buff[2]     y-coordinate [0, 63]
-         * char_buff[3]     R (6-bit)	 [0, 63]
-         * char_buff[4]     G (6-bit)	 [0, 63]
-         * char_buff[5]     B (6-bit)	 [0, 63]
-         * char_buff[6]     Delimiter: 		255
-         */
-        while(curr_char != 255 && q < 7)
-        {
-            /* If there is UART traffic */
-            if(pc.readable())
-            {
-                curr_char = uint8_t(pc.getc());
-                char_buff[q] = curr_char;
-                q++;
-            }
-        }
-        
-        if((char_buff[0] == 254) && (q >= 5)){
-            switch(char_buff[2]%Y_MAX){
+
+    	q++;
+            switch(q%8){
             case 0:
                 lightStrip = &lightStrip1;
                 break;
@@ -111,28 +97,13 @@ int main(void)
                 break;   
             }
             // 								{PIXEL_POS (X), 		R, 				G, 				B}
-            (*lightStrip).setPixelColor(char_buff[1]%X_MAX, (char_buff[3]), (char_buff[4]), (char_buff[5]));
-            
-            (*lightStrip).show();
-        }
-        else{
-        	if((char_buff[0]) == 254 && (char_buff[1] == 254)){
-                WS2811::startDMA();
-        	}
-        	else{
-//            clearStrip(lightStrip1);
-//            clearStrip(lightStrip2);
-//            clearStrip(lightStrip3);
-//            clearStrip(lightStrip4);
-//            clearStrip(lightStrip5);
-//            clearStrip(lightStrip6);
-//            clearStrip(lightStrip7);
-//            clearStrip(lightStrip8);
-        	}
-        }
-        q = 0;
-        curr_char = 0;
-        pc.putc(48+(char_buff[1]));
+//            (*lightStrip).setPixelColor(char_buff[1]%X_MAX, (char_buff[3]), (char_buff[4]), (char_buff[5]));
+    		showSolidColor( (*lightStrip), q/5,q/2,q/3);
 
-    }
+            (*lightStrip).show();
+            WS2811::startDMA();
+    		wait(0.01);
+
+        }
+
 }

@@ -19,7 +19,7 @@
 #include "mbed.h"
 #include "LedStrip.h"
 
-#define MAX_LEDS_PER_STRIP 8
+#define MAX_LEDS_PER_STRIP 32
 
 extern "C" void DMA0_IRQHandler();
 extern "C" void TPM0_IRQHandler();
