@@ -9,6 +9,8 @@ Serial port;
 int r =0, g =0, b =0, COM_PORT_NUM = 1;    // RGB and serial port vars
 PImage img;
 String filePath;
+final int module_height = 8; 
+
 
 boolean flag = boolean(1);            // flag = 0 if COMPORT set in GUI
 int gridScale;                        // 80 for 8x8, 10 for 64x64
@@ -247,6 +249,26 @@ public void verifySetup(){
   }
 }
 
+public void send_data(int row){
+   int pixel_pos = 0;
+   for(int i = 0; i < module_height; i++){
+         for(int j =0; j < img.width; j++){
+           pixel_pos = ((row*module_height)+i)*img.width + j;
+           port.write(254);       
+           port.write(j);
+           port.write(i);
+           //println(j," ",i," ",pixel_pos);
+           port.write((int)((128*red(img.pixels[pixel_pos]))/255));
+           port.write((int)((128*green(img.pixels[pixel_pos]))/255));
+           port.write((int)((128*blue(img.pixels[pixel_pos]))/255));
+           
+           //println("r ", red(img.pixels[pixel_pos]),"g ",green(img.pixels[pixel_pos]), "b ",blue(img.pixels[pixel_pos]));
+           port.write(255);
+         }
+   }
+}
+ 
+ 
 private int[] electricalRequirements(){
   int maxCurrentPerLED = 60;
   int[] maxCurrentDraw = new int[boards.length];

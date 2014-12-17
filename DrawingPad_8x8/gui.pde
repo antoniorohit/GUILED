@@ -25,20 +25,25 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:2493
 } //_CODE_:button1:249331:
 
 public void button2_click1(GButton source, GEvent event) {
+  int ch = 0;
   if (img != null) {
     println("Writing image to LED's");
-    for(int dim = 0; dim < img.height*img.width; dim++){
-           int i = (int)dim%16;
-           int j = (int)dim/16;
-           port.write(254);       
-           port.write(i);
-           port.write(j);
-         
-           port.write((int)((128*red(img.pixels[dim]))/255));
-           port.write((int)((128*green(img.pixels[dim]))/255));
-           port.write((int)((128*blue(img.pixels[dim]))/255));
-           port.write(255);
-     }
+    if(img.height > 8){
+       println("Sending Slave data");
+       send_data(0);         
+       port.write(254);       
+       port.write(70);       
+       port.write(255);
+       do{
+          ch = port.read();
+       }  while(ch != 249);
+     }          
+     println("Sending master data");
+     send_data(1);       
+     // Display Image Packet
+     port.write(254);       
+     port.write(254);       
+     port.write(255);
   }
   else {
     println("Image is not loaded. Please load a new image.");
