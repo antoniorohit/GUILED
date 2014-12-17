@@ -24,7 +24,7 @@ void setup() {
   img.loadPixels();
   double oldTimeStamp = 0;
   
-  table = loadTable("tess1.csv", "header");
+  table = loadTable("tess2.csv", "header");
 
   int maxRows = table.getRowCount();
 
@@ -79,22 +79,19 @@ void setup() {
       
         
       
-      if((highTime + lowTime) > 1*0.001*0.001 || (timestamp - oldTimeStamp >= 1.25*.001*.001)){ //us
+      if((highTime) > .200*0.001*0.001){ //|| (timestamp - oldTimeStamp >= 1.25*.001*.001)){ //us
           oldTimeStamp = timestamp;
-          if(lowTime > 0){ //|| highTime > 0 ){
-            dutyCycle = highTime/(highTime + lowTime);          // 2.5 cycles = 1.25uS
-            if(dutyCycle > .6){
-              dutyCycleBuff[i] = 1;
-            }
-            else{
-              dutyCycleBuff[i] = 0;
-            }
-            count++;
-            i++;
-//            println("DutyCycle: ", dutyCycle, "TT: ", (highTime + lowTime)*1000000);
-            highTime = lowTime = 0;
+          dutyCycle = highTime/(0.001*0.001*1.25);          // 2.5 cycles = 1.25uS
+          if(dutyCycle > .5){
+            dutyCycleBuff[i] = 1;
           }
-
+          else{
+            dutyCycleBuff[i] = 0;
+          }
+          count++;
+          i++;
+          println("DutyCycle: ", dutyCycle, "TT: ", (highTime + lowTime)*1000000);
+          highTime = lowTime = 0;
 
           if(count == 8){
             g = dutyCycleBuff[7]*128 + dutyCycleBuff[6]*64 + dutyCycleBuff[5]*32 + dutyCycleBuff[4]*16 + dutyCycleBuff[3]*8 + dutyCycleBuff[2]*4 + dutyCycleBuff[1]*2 + dutyCycleBuff[0]*1;
