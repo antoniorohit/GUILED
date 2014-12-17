@@ -20,7 +20,7 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:2493
   background(230);
   stroke(0,0,0);
   fill(0,0,0);
-  rect(BORDER-1, BORDER-1, 640, 640);
+  rect(BORDER-1, BORDER-1, 990, 740);
   port.write(255);
 } //_CODE_:button1:249331:
 

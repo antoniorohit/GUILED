@@ -101,6 +101,7 @@ public void customGUI(){
 
 }
 
+
 public void fileSelected(File selection){
   if (selection == null) {
     filePath = "-1";
@@ -203,7 +204,7 @@ public void constructModuleSpace(){
     pixelsAvailable = pixelsAvailable + moduleSpace[i][j]*64;
     }
   }
-  gridScale = (int)(640/(sqrt(pixelsAvailable)));
+  gridScale = (int)(990/(sqrt(pixelsAvailable)));
 }
 
 public void verifySetup(){
