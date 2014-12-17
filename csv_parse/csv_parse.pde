@@ -23,7 +23,7 @@ void setup() {
   img.loadPixels();
   float oldTimeStamp = 0;
   
-  table = loadTable("tes1.csv", "header");
+  table = loadTable("tes2.csv", "header");
 
   int maxRows = table.getRowCount();
 
@@ -68,18 +68,15 @@ void setup() {
       
         
       
-      if((highTime + lowTime) > 0.9*0.001*0.001 ){//|| (timestamp - oldTimeStamp > 1.25*.001*.001)){ //us
+      if( (timestamp - oldTimeStamp > 1.25*.001*.001)){ //us
           oldTimeStamp = timestamp;
-          dutyCycle = highTime/(highTime+lowTime);//(highTime + lowTime);          // 2.5 cycles = 1.25uS
-          if(dutyCycle > .5){
+          dutyCycle = 1000000*highTime/1.25;//(highTime + lowTime);          // 2.5 cycles = 1.25uS
+          if(dutyCycle > .6){
             dutyCycleBuff[i] = 1;
           }
           count++;
           i++;
-          
-          if(highTime + lowTime == 1.25*.001*.001)
-            println("HHHHHHHUUUUUUUUUZZZZZZZZZAAAAAAAHHHHHHHHH!!!!!!!!!!!");
-          
+                    
           println("DutyCycle: ", dutyCycle, "TT: ", (highTime+lowTime)*1000000);
           
           highTime = lowTime = 0;

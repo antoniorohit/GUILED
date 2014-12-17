@@ -54,7 +54,7 @@ static const uint32_t CLK_NSEC = 1250;
 static const uint32_t tpm_period    = NSEC_TO_TICKS(CLK_NSEC);
 //static const uint32_t tpm_p0_period = NSEC_TO_TICKS(250);
 //static const uint32_t tpm_p1_period = NSEC_TO_TICKS(650);
-static const uint32_t tpm_p0_period = NSEC_TO_TICKS(300);
+static const uint32_t tpm_p0_period = NSEC_TO_TICKS(250);
 static const uint32_t tpm_p1_period = NSEC_TO_TICKS(900);
 static const uint32_t guardtime_period = USEC_TO_TICKS(20);   // guardtime minimum 50 usec.
 
