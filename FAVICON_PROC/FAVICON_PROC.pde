@@ -13,10 +13,10 @@
   println("Available serial ports:");
   println(Serial.list());
  
-  img2 = loadImage("logo.gif");
-  img1 = loadImage("hearts.jpg");
-  img4 = loadImage("google.jpg");
-  img3 = loadImage("4.jpg");
+  img1 = loadImage("ILU.jpg");
+  img2 = loadImage("hearts.jpg");
+  img3 = loadImage("google.jpg");
+  img4 = loadImage("4.jpg");
 
   img1.resize(8, 8);
   img2.resize(16, 16);
@@ -47,7 +47,6 @@
 
   if(mousePressed)
   {
-      delay(1);
        for(int dim = 0; dim < img1.height*img1.width; dim++)
        {
          i = (int)dim%8;
@@ -59,14 +58,17 @@
          port.write((int)((128*red(img1.pixels[dim]))/255));
          port.write((int)((128*green(img1.pixels[dim]))/255));
          port.write((int)((128*blue(img1.pixels[dim]))/255));
-         port.write(255);
-          
+         port.write(255);          
         }
-       
+
        // Display Image Packet
        port.write(254);       
        port.write(254);       
        port.write(255);
+        
+        exit();
+       
  }
+
 }
  

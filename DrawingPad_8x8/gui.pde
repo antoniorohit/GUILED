@@ -31,7 +31,7 @@ public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_P
   {
     print(int(COM_PORT.getText()));
     COM_PORT_NUM = int(COM_PORT.getText());
-    port = new Serial(this, Serial.list()[COM_PORT_NUM], 115200); 
+    port = new Serial(this, Serial.list()[COM_PORT_NUM], 9600); 
     flag = boolean(0);
   }
 } //_CODE_:COM_PORT:368153:

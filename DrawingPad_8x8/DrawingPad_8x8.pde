@@ -22,7 +22,7 @@ public void setup(){
   println("Available serial ports:");  
   println(Serial.list());
   // note that the serial port is set using the GUI
-//  port = new Serial(this, Serial.list()[3], 115200); 
+//  port = new Serial(this, Serial.list()[3], 9600); 
 //  flag = false;
 }
 
@@ -43,7 +43,10 @@ public void draw(){
          port.write(r*250/255);                                // R byte (6-bit)
          port.write(g*250/255);                                // G byte  (6-bit)
          port.write(b*250/255);                                // B byte  (6-bit)
-         port.write(255);                                     // end byte
+         port.write(255);                                     // end byte         
+     port.write(254);
+     port.write(254);
+     port.write(255);
       }
    }
    // right click clears a pixel. Recall that flag == true if COMPORT is set
@@ -61,8 +64,14 @@ public void draw(){
       port.write(0);
       port.write(0);
       port.write(255);                                               // end byte
+
+     port.write(254);
+     port.write(254);
+     port.write(255);
+
       }
    }
+   
 
 }
 
