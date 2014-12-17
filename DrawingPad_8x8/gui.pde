@@ -20,9 +20,39 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:2493
   background(230);
   stroke(0,0,0);
   fill(0,0,0);
-  rect(BORDER-1, BORDER-1, 640, 640);
+  rect(BORDER-1, BORDER-1, 990, 740);
   port.write(255);
 } //_CODE_:button1:249331:
+
+public void button2_click1(GButton source, GEvent event) {
+  int ch = 0;
+  if (img != null) {
+    println("Writing image to LED's");
+    if(img.height > 8){
+       println("Sending Slave data");
+       send_data(0);         
+       port.write(254);       
+       port.write(70);       
+       port.write(255);
+       do{
+          ch = port.read();
+       }  while(ch != 249);
+     }          
+     println("Sending master data");
+     send_data(1);       
+     // Display Image Packet
+     port.write(254);       
+     port.write(254);       
+     port.write(255);
+  }
+  else {
+    println("Image is not loaded. Please load a new image.");
+  }
+}
+
+public void button3_click1(GButton source, GEvent event){
+  setImage();
+}
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_PORT:368153:
   println("COM_PORT - GTextField event occured " + System.currentTimeMillis()%10000000 );
@@ -31,7 +61,7 @@ public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:COM_P
   {
     print(int(COM_PORT.getText()));
     COM_PORT_NUM = int(COM_PORT.getText());
-    port = new Serial(this, Serial.list()[COM_PORT_NUM], 9600); 
+    port = new Serial(this, Serial.list()[COM_PORT_NUM], 115200); 
     flag = boolean(0);
   }
 } //_CODE_:COM_PORT:368153:
@@ -46,16 +76,24 @@ public void createGUI(){
   if(frame != null)
     frame.setTitle("Sketch Window");
   
-  button1 = new GButton(this, 510, 670, 80, 30);
+  button1 = new GButton(this, 510, 770, 80, 30);
   button1.setText("Clear");
   button1.addEventHandler(this, "button1_click1");
+  
+  GButton button2 = new GButton(this, 610, 770, 80, 30);
+  button2.setText("Set Image");
+  button2.addEventHandler(this, "button2_click1");
+  
+  GButton button3 = new GButton(this, 710, 770, 80, 30);
+  button3.setText("Load Image");
+  button3.addEventHandler(this, "button3_click1");
 
-  label3 = new GLabel(this, 30, 650, 80, 20);
+  label3 = new GLabel(this, 30, 750, 80, 20);
   label3.setText("Red:");
   label3.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
   label3.setOpaque(false);
   
-  custom_slider1 = new GCustomSlider(this, 30, 660, 81, 50, "grey_blue");
+  custom_slider1 = new GCustomSlider(this, 30, 760, 81, 50, "grey_blue");
   custom_slider1.setShowLimits(true);
   custom_slider1.setLimits(0, 0, 255);
   custom_slider1.setNbrTicks(255);
@@ -65,11 +103,11 @@ public void createGUI(){
   custom_slider1.addEventHandler(this, "custom_slider1_change");
 
   
-  label3 = new GLabel(this, 150, 650, 80, 20);
+  label3 = new GLabel(this, 150, 750, 80, 20);
   label3.setText("Green:");
   label3.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
   label3.setOpaque(false);
-  custom_slider2 = new GCustomSlider(this, 150, 660, 81, 50, "grey_blue");
+  custom_slider2 = new GCustomSlider(this, 150, 760, 81, 50, "grey_blue");
   custom_slider2.setShowLimits(true);
   custom_slider2.setLimits(0, 0, 255);
   custom_slider2.setNbrTicks(255);
@@ -78,11 +116,11 @@ public void createGUI(){
   custom_slider2.setOpaque(false);
   custom_slider2.addEventHandler(this, "custom_slider2_change");
   
-  label2 = new GLabel(this, 270, 650, 80, 20);
+  label2 = new GLabel(this, 270, 750, 80, 20);
   label2.setText("Blue:");
   label2.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
   label2.setOpaque(false);
-  custom_slider3 = new GCustomSlider(this, 270, 660, 81, 50, "grey_blue");
+  custom_slider3 = new GCustomSlider(this, 270, 760, 81, 50, "grey_blue");
   custom_slider3.setShowLimits(true);
   custom_slider3.setLimits(0, 0, 255);
   custom_slider3.setNbrTicks(255);
@@ -91,11 +129,11 @@ public void createGUI(){
   custom_slider3.setOpaque(false);
   custom_slider3.addEventHandler(this, "custom_slider3_change");
   
-  COM_PORT = new GTextField(this, 390, 670, 81, 30, G4P.SCROLLBARS_NONE);
+  COM_PORT = new GTextField(this, 390, 770, 81, 30, G4P.SCROLLBARS_NONE);
   COM_PORT.setText("0");
   COM_PORT.setOpaque(true);
   COM_PORT.addEventHandler(this, "textfield1_change1");
-  label4 = new GLabel(this, 390, 650, 80, 20);
+  label4 = new GLabel(this, 390, 750, 80, 20);
   label4.setText("COM PORT");
   label4.setTextAlign(GAlign.LEFT, GAlign.MIDDLE);
   label4.setOpaque(false);
